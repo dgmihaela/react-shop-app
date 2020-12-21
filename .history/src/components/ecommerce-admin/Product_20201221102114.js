@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react/cjs/react.development';
 
-const Product = ({getEditData, product}) => {
+const Product = ({getEditData, products, product}) => {
     [isChecked, setIsChecked] = useState("");
 
     function handleCheckbox(event) {
@@ -39,7 +39,7 @@ const Product = ({getEditData, product}) => {
 
 
 
-// class Product extends React.Component {
+class Product extends React.Component {
 
     // constructor(props) {
     //     super(props);
@@ -68,22 +68,22 @@ const Product = ({getEditData, product}) => {
     // }
 
     
-//     render() {
+    render() {
    
-//         return (
-//             <div className="product">
-//                 <div><input type='checkbox' value={this.state.isChecked} onClick={this.handleCheckbox}/>
-//                 {this.state.isChecked && 
-//                     <form>
-//                         <button type="button">Edit</button>  
-//                         <button type="button" onClick={this.hanldeDeleteProduct}>Delete</button>
-//                     </form>}
-//                 </div>
-//                 <h3>{this.props.product.title}</h3>
-//                 <span>{this.props.product.description}</span>
-//             </div>
-//         )
-//     }
-// }
+        return (
+            <div className="product">
+                <div><input type='checkbox' value={this.state.isChecked} onClick={this.handleCheckbox}/>
+                {this.state.isChecked && 
+                    <form>
+                        <button type="button">Edit</button>  
+                        <button type="button" onClick={this.hanldeDeleteProduct}>Delete</button>
+                    </form>}
+                </div>
+                <h3>{this.props.product.title}</h3>
+                <span>{this.props.product.description}</span>
+            </div>
+        )
+    }
+}
 
 export default Product;

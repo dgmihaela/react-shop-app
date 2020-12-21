@@ -5,7 +5,7 @@ import './styles.css'
 import ModalEditCategory from './ModalEditCategory';
 
 
-const Category = ({category, callbackDeletedCategory}) => {
+function Category({category, callbackDeletedCategory}) {
     const [products, setProducts] = useState([]);
     const [showBtns, setShowBtns] = useState(false);
     const [showEditModalFlag, setShowEditModalFlag] = useState(false);
@@ -37,7 +37,7 @@ const Category = ({category, callbackDeletedCategory}) => {
             // this.setState({
             //     products: res.data
             // })
-            setProducts(res.data);
+            setProducts(res.data)
         })
     });
 
@@ -53,7 +53,7 @@ const Category = ({category, callbackDeletedCategory}) => {
                     axios.delete(`http://localhost:9000/categories/${idCateg}`)
                     .then(res => {
                         console.log('res ok: ', res);
-                        callbackDeletedCategory(idCateg);
+                        this.props.callbackDeletedCategory(idCateg);
                     }).catch(err => {
                         console.log('err: ', err);
                     })
@@ -80,10 +80,8 @@ const Category = ({category, callbackDeletedCategory}) => {
         } 
 
         function getEditData(updatedProduct) {
-
-            console.log('dddd')
             console.log('get edit data: ', updatedProduct);
-          
+    
             // let indexOfOldTest = this.state.products.indexOf(updatedProduct);
     
             let indexOfOld = -1;
@@ -102,24 +100,10 @@ const Category = ({category, callbackDeletedCategory}) => {
             // })
             setProducts(copyOldProducts)
         }
-
-        let productsComponents = products.map(prodObject => <Product getEditData={getEditData} products={products} onClick={handleCheckbox} product={prodObject} key={prodObject.id} />);
-
-        return (
-            <div className="category">
-                {!showBtns && <button onClick={showModalEdit}>Edit category</button>}
-                <ModalEditCategory getEditData={getEditData} products={products} showEditModalFlag={showEditModalFlag} hideModalEdit={hideModalEdit} />
-                {!showBtns && <button onClick={() => deleteCategory(category.id)}>Delete category</button>}
-                <div onClick={showBtnsToggle}>
-                    <div className="category-title"><h2>Category: <span style={{ color: 'blue' }}>{category.name}</span> </h2></div>
-                    {productsComponents}
-                </div>
-            </div>
-        )
     }
 
 
-// class Category extends React.Component {
+class Category extends React.Component {
 
     // constructor(props) {
     //     super(props);
@@ -208,46 +192,46 @@ const Category = ({category, callbackDeletedCategory}) => {
     //     }
     // }
 
-    // getEditData(updatedProduct) {
-    //     console.log('get edit data: ', updatedProduct);
+    getEditData(updatedProduct) {
+        console.log('get edit data: ', updatedProduct);
 
-    //     // let indexOfOldTest = this.state.products.indexOf(updatedProduct);
+        // let indexOfOldTest = this.state.products.indexOf(updatedProduct);
 
-    //     let indexOfOld = -1;
-    //     for (let op of this.state.products) {
-    //         if (op.id == updatedProduct.id) {
-    //             indexOfOld = this.state.products.indexOf(op);
-    //             break;
-    //         }
-    //     }
-    //     let copyOldProducts = [...this.state.products];
-    //     copyOldProducts[indexOfOld] = updatedProduct;
-    //     //let productsWithoutOldProduct = this.state.products.filter(x => x.id != updatedProduct.id);
-    //     this.setState((state) => {
-    //         return {
-    //             products: copyOldProducts
-    //         }
-    //     })
-    // }
+        let indexOfOld = -1;
+        for (let op of this.state.products) {
+            if (op.id == updatedProduct.id) {
+                indexOfOld = this.state.products.indexOf(op);
+                break;
+            }
+        }
+        let copyOldProducts = [...this.state.products];
+        copyOldProducts[indexOfOld] = updatedProduct;
+        //let productsWithoutOldProduct = this.state.products.filter(x => x.id != updatedProduct.id);
+        this.setState((state) => {
+            return {
+                products: copyOldProducts
+            }
+        })
+    }
 
 
-    // render() {
-    //     console.log('CATEGORY RENDER');
-    //     let prodByCateg = [...this.state.products];//this.state.products.filter(prod => this.props.category.id === prod.id_category);
-    //     let productsComponents = products.map(prodObject => <Product getEditData={this.getEditData} products={products} onClick={this.handleCheckbox} product={prodObject} key={prodObject.id} />);
+    render() {
+        console.log('CATEGORY RENDER');
+        let prodByCateg = [...this.state.products];//this.state.products.filter(prod => this.props.category.id === prod.id_category);
+        let productsComponents = this.state.products.map(prodObject => <Product getEditData={this.getEditData} products={prodByCateg} onClick={this.handleCheckbox} product={prodObject} key={prodObject.id} />);
 
-    //     return (
-    //         <div className="category">
-    //             {!this.state.showBtns && <button onClick={this.showModalEdit}>Edit category</button>}
-    //             <ModalEditCategory getEditData={this.getEditData} products={this.state.products} showEditModalFlag={this.state.showEditModalFlag} hideModalEdit={this.hideModalEdit} />
-    //             {!this.state.showBtns && <button onClick={() => this.deleteCategory(this.props.category.id)}>Delete category</button>}
-    //             <div onClick={this.showBtnsToggle}>
-    //                 <div className="category-title"><h2>Category: <span style={{ color: 'blue' }}>{this.props.category.name}</span> </h2></div>
-    //                 {productsComponents}
-    //             </div>
-    //         </div>
-    //     )
-    // }
-// }
+        return (
+            <div className="category">
+                {!this.state.showBtns && <button onClick={this.showModalEdit}>Edit category</button>}
+                <ModalEditCategory getEditData={this.getEditData} products={this.state.products} showEditModalFlag={this.state.showEditModalFlag} hideModalEdit={this.hideModalEdit} />
+                {!this.state.showBtns && <button onClick={() => this.deleteCategory(this.props.category.id)}>Delete category</button>}
+                <div onClick={this.showBtnsToggle}>
+                    <div className="category-title"><h2>Category: <span style={{ color: 'blue' }}>{this.props.category.name}</span> </h2></div>
+                    {productsComponents}
+                </div>
+            </div>
+        )
+    }
+}
 
 export default Category;

@@ -5,7 +5,7 @@ import './styles.css'
 import ModalEditCategory from './ModalEditCategory';
 
 
-const Category = ({category, callbackDeletedCategory}) => {
+function Category({category, callbackDeletedCategory}) {
     const [products, setProducts] = useState([]);
     const [showBtns, setShowBtns] = useState(false);
     const [showEditModalFlag, setShowEditModalFlag] = useState(false);
@@ -37,7 +37,7 @@ const Category = ({category, callbackDeletedCategory}) => {
             // this.setState({
             //     products: res.data
             // })
-            setProducts(res.data);
+            setProducts(res.data)
         })
     });
 
@@ -53,7 +53,7 @@ const Category = ({category, callbackDeletedCategory}) => {
                     axios.delete(`http://localhost:9000/categories/${idCateg}`)
                     .then(res => {
                         console.log('res ok: ', res);
-                        callbackDeletedCategory(idCateg);
+                        this.props.callbackDeletedCategory(idCateg);
                     }).catch(err => {
                         console.log('err: ', err);
                     })

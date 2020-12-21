@@ -1,8 +1,13 @@
 import React, { useState, useEffect  } from 'react';
+
 import axios from 'axios';
 import Category from './Category';
 import Modal from "./Modal";
 import MainBtns from './MainBtns';
+import MainSearch from "./MainSearch";
+
+
+
 
 function CategoryList() {
     const [categories, setCategories] = useState([]);
@@ -11,6 +16,7 @@ function CategoryList() {
 
 
     useEffect(() => {
+
         console.log('retrieving categories');
         axios.get('http://localhost:9000/categories')
             .then(res => {
