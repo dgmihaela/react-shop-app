@@ -27,7 +27,7 @@ const Modal = ({ callback, modalType, show, handleClose, endpoint, dataSelect })
             })
                 .then(res => {
                     console.log(res)
-                    // callback(res.data);
+                    callback(res.data);
                 })
         }
          else {

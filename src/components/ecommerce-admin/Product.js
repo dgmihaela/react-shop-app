@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 
 const Product = ({getEditData, product}) => {
-    [isChecked, setIsChecked] = useState("");
+    const [isChecked, setIsChecked] = useState("");
 
     function handleCheckbox(event) {
         // this.setState({isChecked: event.target.checked});

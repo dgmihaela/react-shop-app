@@ -3,12 +3,12 @@ import './styles.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react/cjs/react.development';
 
-const ModalEditCategory = ({getEditData, products, showEditModalFlag, hideModalEdit}) => {
-    [products, setProducts] = useState(...products);
+const ModalEditCategory = ({getEditData, initialProducts, showEditModalFlag, hideModalEdit}) => {
+    const [products, setProducts] = useState([...initialProducts]);
 
     function handleChangeEdit(event, i, type) {
 
-        const newProducts = [...products];
+        const newProducts = [...initialProducts];
 
         if(type === 'title'){
             newProducts[i].title = event.target.value;
@@ -30,7 +30,7 @@ const ModalEditCategory = ({getEditData, products, showEditModalFlag, hideModalE
             console.log('llll')
     
             console.log('prod: ', prod);
-            useEffect(() => {
+            // useEffect(() => {
                 axios.put(`http://localhost:9000/products/${prod.id}`, {
                 title : prod.title,
                 description: prod.description,
@@ -39,15 +39,15 @@ const ModalEditCategory = ({getEditData, products, showEditModalFlag, hideModalE
                 .then(res => {
                     getEditData(res.data);
                 })
-            })
+            // })
             
         });
     }
 
 
     const showEditModal = showEditModalFlag ? 'modal display-block' : 'modal display-none';
-    console.log('products loaded in modal edit category: ', products);
-    let formGenerate = products.map((prodItem, i) => 
+    console.log('products loaded in modal edit category: ', initialProducts);
+    let formGenerate = initialProducts.map((prodItem, i) => 
         <div key={prodItem.id}>
             <p>Product</p>
             <input type='text' onChange={(e)=>handleChangeEdit(e, i, "title")} value={prodItem.title} />
