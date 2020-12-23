@@ -1,0 +1,25 @@
+import React, { useState } from 'react';
+
+const Form = ({onSubmit, dataSelect }) => {
+
+    const [optionIndex, setOptionIndex] = useState(' ');
+
+    let handleChange = (event) => {
+        console.log('changed option: ', event.target.value);
+        setOptionIndex(event.target.value);
+       
+    }
+        return (
+            <form onSubmit={onSubmit}>
+                <div>
+                    <label htmlFor="title">Title of category</label>
+                    <input id="title" />
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        )
+    
+
+}
+
+export default Form;
